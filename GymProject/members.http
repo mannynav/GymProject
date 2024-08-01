@@ -1,3 +1,21 @@
 
 GET http://localhost:5094/members
 
+
+###
+GET http://localhost:5094/members/2
+
+###
+POST http://localhost:5094/members
+Content-Type: application/json
+
+{
+  "firstName": "Manny",
+  "lastName" : "Navarro",
+  "email": "mannynav7794@gmail.com",
+  "phoneNumber": "8566765417",
+  "height": 180,
+  "weight": 100,
+  "goal": "Add weight",
+  "joiningDate": "2021-09-01"
+}
