@@ -74,4 +74,43 @@ app.MapPost("members", (CreateMemberContract contract) =>
 });
 
 
+
+// PUT(update) /members/1
+app.MapPut("games/{id}", (int id, UpdateMemberContract updatedMember) =>
+{
+
+    var index = contracts.FindIndex(member => member.Id == id);
+
+    contracts[index] = new MemberContract(
+        id,
+        updatedMember.FirstName,
+        updatedMember.LastName,
+        updatedMember.Email,
+        updatedMember.PhoneNumber,
+        updatedMember.Height,
+        updatedMember.Weight,
+        updatedMember.Goal,
+        updatedMember.JoiningDate
+    );
+
+    return Results.NoContent();
+
+});
+
+app.MapDelete("members/{id}", (int id) =>
+{
+    contracts.RemoveAll(member => member.Id == id);
+    return Results.NoContent();
+
+}
+
+
+
+);
+
+
+
+
+
+
 app.Run();

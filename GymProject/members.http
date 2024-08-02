@@ -3,7 +3,7 @@ GET http://localhost:5094/members
 
 
 ###
-GET http://localhost:5094/members/2
+GET http://localhost:5094/members/3
 
 ###
 POST http://localhost:5094/members
@@ -19,3 +19,23 @@ Content-Type: application/json
   "goal": "Add weight",
   "joiningDate": "2021-09-01"
 }
+
+
+###
+PUT http://localhost:5094/members/1
+Content-Type: application/json
+
+{
+  "firstName": "Chloe",
+  "lastName": "Doe",
+  "email": "Chloedoe@gmail.com",
+  "phoneNumber": "111111111",
+  "height": 180,
+  "weight": 40,
+  "goal": "Lose Weight",
+  "joiningDate": "2021-10-10"
+}
+
+
+###
+DELETE http://localhost:5094/members/1
