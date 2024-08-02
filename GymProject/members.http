@@ -3,7 +3,7 @@ GET http://localhost:5094/members
 
 
 ###
-GET http://localhost:5094/members/3
+GET http://localhost:5094/members/5
 
 ###
 POST http://localhost:5094/members
@@ -22,7 +22,7 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:5094/members/1
+PUT http://localhost:5094/members/3
 Content-Type: application/json
 
 {
@@ -38,4 +38,4 @@ Content-Type: application/json
 
 
 ###
-DELETE http://localhost:5094/members/1
+DELETE http://localhost:5094/members/3

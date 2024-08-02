@@ -40,7 +40,14 @@ List<MemberContract> contracts = [
 app.MapGet("members", () => contracts);
 
 // GET /members/1
-app.MapGet("members/{id}", (int id) => contracts.Find(member => member.Id == id))
+app.MapGet("members/{id}", (int id) =>
+
+{
+    MemberContract? member = contracts.Find(member => member.Id == id);
+
+    return member is null ? Results.NotFound() : Results.Ok(member);
+}
+)
 .WithName(GetMember);
 
 // GET /members/lastName
@@ -76,10 +83,15 @@ app.MapPost("members", (CreateMemberContract contract) =>
 
 
 // PUT(update) /members/1
-app.MapPut("games/{id}", (int id, UpdateMemberContract updatedMember) =>
+app.MapPut("members/{id}", (int id, UpdateMemberContract updatedMember) =>
 {
 
     var index = contracts.FindIndex(member => member.Id == id);
+
+    if (index == -1)
+    {
+        return Results.NotFound();
+    }
 
     contracts[index] = new MemberContract(
         id,
@@ -97,20 +109,13 @@ app.MapPut("games/{id}", (int id, UpdateMemberContract updatedMember) =>
 
 });
 
+
+// DELETE /members/1
 app.MapDelete("members/{id}", (int id) =>
 {
     contracts.RemoveAll(member => member.Id == id);
     return Results.NoContent();
 
-}
-
-
-
-);
-
-
-
-
-
+});
 
 app.Run();
