@@ -22,13 +22,13 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:5094/members/3
+PUT http://localhost:5094/members/1
 Content-Type: application/json
 
 {
   "firstName": "Chloe",
   "lastName": "Doe",
-  "email": "Chloedoe@gmail.com",
+  "email": "ChloeDoe@gmail.com",
   "phoneNumber": "111111111",
   "height": 180,
   "weight": 40,
