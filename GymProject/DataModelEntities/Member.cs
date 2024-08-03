@@ -1,6 +1,5 @@
-﻿using GymProject.Entites;
-
-namespace GymProject;
+﻿using GymProject.Entities;
+namespace GymProject.DataModelEntities;
 
 public class Member
 {
@@ -10,8 +9,8 @@ public class Member
 
 
     public int Id { get; set; }
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
+    public required string FirstName { get; set; }
+    public required string LastName { get; set; }
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
     public int Height { get; set; }
