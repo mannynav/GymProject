@@ -1,5 +1,4 @@
 ﻿using GymProject.DataModelEntities;
-using GymProject.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymProject.Data;
@@ -10,13 +9,17 @@ public class GymContext(DbContextOptions<GymContext> options) : DbContext(option
 
     public DbSet<Member> Members => Set<Member>();
 
-    public DbSet<Aims> Aims => Set<Aims>();
+    public DbSet<Reason> Reasons => Set<Reason>();
 
     //Method executed upon migration
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Reason>().HasData(
+            new Reason { Id = 1, NameOfReason = "Lose Weight" },
+            new Reason { Id = 2, NameOfReason = "Gain Muscle" },
+            new Reason { Id = 3, NameOfReason = "Maintain Weight" },
+            new Reason { Id = 4, NameOfReason = "Improve Cardio" },
+            new Reason { Id = 5, NameOfReason = "Improve Flexibility" }
+        );
     }
-
-
 }

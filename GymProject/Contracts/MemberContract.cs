@@ -9,6 +9,6 @@ public record class MemberContract(
     string PhoneNumber,
     int Height,
     int Weight,
-    string Goal,
+    string Reason,
     DateOnly JoiningDate
 );

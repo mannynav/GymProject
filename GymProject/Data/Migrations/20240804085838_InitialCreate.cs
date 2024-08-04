@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace GymProject.Data.Migrations
 {
     /// <inheritdoc />
@@ -12,17 +14,16 @@ namespace GymProject.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Aims",
+                name: "Reasons",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false)
+                    NameOfReason = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Aims", x => x.Id);
+                    table.PrimaryKey("PK_Reasons", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -31,8 +32,7 @@ namespace GymProject.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    AimId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AimsId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ReasonId = table.Column<int>(type: "INTEGER", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: true),
@@ -46,16 +46,29 @@ namespace GymProject.Data.Migrations
                 {
                     table.PrimaryKey("PK_Members", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Members_Aims_AimsId",
-                        column: x => x.AimsId,
-                        principalTable: "Aims",
-                        principalColumn: "Id");
+                        name: "FK_Members_Reasons_ReasonId",
+                        column: x => x.ReasonId,
+                        principalTable: "Reasons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reasons",
+                columns: new[] { "Id", "NameOfReason" },
+                values: new object[,]
+                {
+                    { 1, "Lose Weight" },
+                    { 2, "Gain Muscle" },
+                    { 3, "Maintain Weight" },
+                    { 4, "Improve Cardio" },
+                    { 5, "Improve Flexibility" }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Members_AimsId",
+                name: "IX_Members_ReasonId",
                 table: "Members",
-                column: "AimsId");
+                column: "ReasonId");
         }
 
         /// <inheritdoc />
@@ -65,7 +78,7 @@ namespace GymProject.Data.Migrations
                 name: "Members");
 
             migrationBuilder.DropTable(
-                name: "Aims");
+                name: "Reasons");
         }
     }
 }

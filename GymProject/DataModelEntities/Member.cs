@@ -1,14 +1,14 @@
-﻿using GymProject.Entities;
+﻿
 namespace GymProject.DataModelEntities;
 
 public class Member
 {
-
-    public int AimId { get; set; }
-    public Aims? Aims { get; set; }
-
-
     public int Id { get; set; }
+
+    public int ReasonId { get; set; }
+
+    public Reason? Reason { get; set; }
+
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public string? Email { get; set; }

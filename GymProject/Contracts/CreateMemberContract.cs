@@ -10,7 +10,7 @@ public record class CreateMemberContract(
     [Required][StringLength(11)] string PhoneNumber,
     [Range(1, 500)] int Height,
     [Range(1, 500)] int Weight,
-    [Required][StringLength(25)] string Goal,
+    int ReasonId,
     [Required] DateOnly JoiningDate
 
 );

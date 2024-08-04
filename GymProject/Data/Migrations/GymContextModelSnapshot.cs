@@ -23,12 +23,6 @@ namespace GymProject.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AimId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("AimsId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
@@ -52,42 +46,70 @@ namespace GymProject.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ReasonId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Weight")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AimsId");
+                    b.HasIndex("ReasonId");
 
                     b.ToTable("Members");
                 });
 
-            modelBuilder.Entity("GymProject.Entities.Aims", b =>
+            modelBuilder.Entity("GymProject.DataModelEntities.Reason", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("NameOfReason")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Aims");
+                    b.ToTable("Reasons");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NameOfReason = "Lose Weight"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NameOfReason = "Gain Muscle"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NameOfReason = "Maintain Weight"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            NameOfReason = "Improve Cardio"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            NameOfReason = "Improve Flexibility"
+                        });
                 });
 
             modelBuilder.Entity("GymProject.DataModelEntities.Member", b =>
                 {
-                    b.HasOne("GymProject.Entities.Aims", "Aims")
+                    b.HasOne("GymProject.DataModelEntities.Reason", "Reason")
                         .WithMany()
-                        .HasForeignKey("AimsId");
+                        .HasForeignKey("ReasonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Aims");
+                    b.Navigation("Reason");
                 });
 #pragma warning restore 612, 618
         }

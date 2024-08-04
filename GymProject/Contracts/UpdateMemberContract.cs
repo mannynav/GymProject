@@ -11,6 +11,6 @@ public record class UpdateMemberContract(
     [Required][StringLength(11)] string PhoneNumber,
     [Range(1, 500)] int Height,
     [Range(1, 500)] int Weight,
-    [Required][StringLength(25)] string Goal,
+    [Required][StringLength(25)] string Reason,
     [Required] DateOnly JoiningDate
 );

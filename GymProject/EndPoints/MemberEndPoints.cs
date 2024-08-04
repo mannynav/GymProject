@@ -1,4 +1,6 @@
 ﻿using GymProject.Contracts;
+using GymProject.Data;
+using GymProject.DataModelEntities;
 namespace GymProject.EndPoints;
 
 public static class MemberEndPoints
@@ -59,22 +61,24 @@ public static class MemberEndPoints
 
 
         // POST /members
-        group.MapPost("/", (CreateMemberContract newMember) =>
+        group.MapPost("/", (CreateMemberContract newMember, GymContext dbContext) =>
         {
+            Member member = new()
+            {
+                FirstName = newMember.FirstName,
+                LastName = newMember.LastName,
+                Email = newMember.Email,
+                PhoneNumber = newMember.PhoneNumber,
+                Height = newMember.Height,
+                Weight = newMember.Weight,
+                ReasonId = newMember.ReasonId,
+                Reason = dbContext.Reasons.Find(newMember.ReasonId),
+                JoiningDate = newMember.JoiningDate
+            };
 
-            MemberContract member = new MemberContract(
-                contracts.Count + 1,
-                newMember.FirstName,
-                newMember.LastName,
-                newMember.Email,
-                newMember.PhoneNumber,
-                newMember.Height,
-                newMember.Weight,
-                newMember.Goal,
-                newMember.JoiningDate
-            );
+            dbContext.Members.Add(member);
 
-            contracts.Add(member);
+            dbContext.SaveChanges();
 
             return Results.CreatedAtRoute(GetMember, new { id = member.Id }, member);
 
@@ -101,7 +105,7 @@ public static class MemberEndPoints
                 updatedMember.PhoneNumber,
                 updatedMember.Height,
                 updatedMember.Weight,
-                updatedMember.Goal,
+                updatedMember.Reason,
                 updatedMember.JoiningDate
             );
 
