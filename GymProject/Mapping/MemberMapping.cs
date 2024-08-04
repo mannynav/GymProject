@@ -39,6 +39,22 @@ public static class MemberMapping
     }
 
 
+    public static MemberContractDetails ToMemberContractDetails(this Member member)
+    {
+        return new(
+            member.Id,
+            member.FirstName,
+            member.LastName,
+            member.Email,
+            member.PhoneNumber,
+            member.Height,
+            member.Weight,
+            member.ReasonId,
+            member.JoiningDate
+        );
+    }
+
+
 
 
 }

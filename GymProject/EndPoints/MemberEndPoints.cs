@@ -43,21 +43,15 @@ public static class MemberEndPoints
         group.MapGet("/", () => contracts);
 
         // GET /members/1
-        group.MapGet("/{id}", (int id) =>
+        group.MapGet("/{id}", (int id, GymContext dbContext) =>
         {
-            MemberContract? member = contracts.Find(member => member.Id == id);
+            Member? member = dbContext.Members.Find(id);
 
-            return member is null ? Results.NotFound() : Results.Ok(member);
+            return member is null ?
+            Results.NotFound() : Results.Ok(member.ToMemberContractDetails());
         }
         )
         .WithName(GetMember);
-
-        // GET /members/lastName
-        // app.MapGet("members/{lastName}",(string lastName) => contracts.Find(member => member.LastName == lastName));
-
-        // GET /members/phoneNumber
-        // app.MapGet("members/{phoneNumber}",(string phoneNumber) => contracts.Find(member => member.PhoneNumber == phoneNumber))
-        //.WithName(GetMember);
 
 
 
@@ -65,7 +59,7 @@ public static class MemberEndPoints
         group.MapPost("/", (CreateMemberContract newMember, GymContext dbContext) =>
         {
             Member member = newMember.ToEntity(dbContext);
-            member.Reason = dbContext.Reasons.Find(newMember.ReasonId);
+            //member.Reason = dbContext.Reasons.Find(newMember.ReasonId);
 
 
             dbContext.Members.Add(member);
@@ -74,7 +68,7 @@ public static class MemberEndPoints
             return Results.CreatedAtRoute(
                 GetMember,
                 new { id = member.Id },
-                member.ToContract());
+                member.ToMemberContractDetails());
 
         });
 
