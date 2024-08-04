@@ -11,6 +11,7 @@ public record class CreateMemberContract(
     [Range(1, 500)] int Height,
     [Range(1, 500)] int Weight,
     int ReasonId,
+    [Required][StringLength(50)] string Goal,
     [Required] DateOnly JoiningDate
 
 );

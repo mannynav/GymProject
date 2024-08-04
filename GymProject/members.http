@@ -10,13 +10,14 @@ POST http://localhost:5094/members
 Content-Type: application/json
 
 {
-  "firstName": "May",
-  "lastName" : "Johnson",
+  "firstName": "Charlotte",
+  "lastName" : "Doe",
   "email": "mannynav7794@gmail.com",
   "phoneNumber": "8566765417",
   "height": 180,
   "weight": 100,
-  "reasonId": 2,
+  "reasonId": 1,
+  "goal": "NA",
   "joiningDate": "2021-09-01"
 }
 
