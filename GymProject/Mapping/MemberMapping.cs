@@ -23,7 +23,7 @@ public static class MemberMapping
         };
     }
 
-      public static Member ToEntity(this UpdateMemberContract newMember, GymContext dbContext, int id)
+    public static Member ToEntity(this UpdateMemberContract newMember, GymContext dbContext, int id)
     {
         return new Member()
         {

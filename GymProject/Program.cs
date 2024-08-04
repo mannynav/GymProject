@@ -13,6 +13,6 @@ var app = builder.Build();
 
 app.MapMemberEndPoints();
 
-app.MigrateDatabase();
+await app.MigrateDatabaseAsync();
 
 app.Run();

@@ -3,15 +3,15 @@ GET http://localhost:5094/members
 
 
 ###
-GET http://localhost:5094/members/4
+GET http://localhost:5094/members/1
 
 ###
 POST http://localhost:5094/members
 Content-Type: application/json
 
 {
-  "firstName": "NewBe",
-  "lastName" : "Doe",
+  "firstName": "New",
+  "lastName" : "Arms",
   "email": "mannynav7794@gmail.com",
   "phoneNumber": "8566765417",
   "height": 180,
@@ -33,7 +33,7 @@ Content-Type: application/json
   "phoneNumber": "111111111",
   "height": 180,
   "weight": 40,
-  "reasonId": 1,
+  "reasonId": 2,
   "joiningDate": "2021-10-10"
 }
 

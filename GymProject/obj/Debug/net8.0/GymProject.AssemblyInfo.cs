@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GymProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e4021e61492c957709f2cce2b56996491587a022")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82bdf92bec2a500efad20c174e20c477c6e45776")]
 [assembly: System.Reflection.AssemblyProductAttribute("GymProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GymProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
