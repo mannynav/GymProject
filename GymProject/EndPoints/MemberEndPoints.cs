@@ -2,6 +2,7 @@
 using GymProject.Data;
 using GymProject.DataModelEntities;
 using GymProject.Mapping;
+using Microsoft.EntityFrameworkCore;
 namespace GymProject.EndPoints;
 
 public static class MemberEndPoints
@@ -40,7 +41,12 @@ public static class MemberEndPoints
         var group = app.MapGroup("members").WithParameterValidation();
 
         // GET /members
-        group.MapGet("/", () => contracts);
+        group.MapGet("/", (GymContext dbContext) =>
+         dbContext.Members
+         .Include(member => member.Reason)
+         .Select(member => member.ToContract()).AsNoTracking());
+
+
 
         // GET /members/1
         group.MapGet("/{id}", (int id, GymContext dbContext) =>
@@ -49,8 +55,7 @@ public static class MemberEndPoints
 
             return member is null ?
             Results.NotFound() : Results.Ok(member.ToMemberContractDetails());
-        }
-        )
+        })
         .WithName(GetMember);
 
 
@@ -75,27 +80,21 @@ public static class MemberEndPoints
 
 
         // PUT(update) /members/1
-        group.MapPut("/{id}", (int id, UpdateMemberContract updatedMember) =>
+        group.MapPut("/{id}", (int id, UpdateMemberContract updatedMember, GymContext dbContext) =>
         {
 
-            var index = contracts.FindIndex(member => member.Id == id);
+            //var index = contracts.FindIndex(member => member.Id == id);
 
-            if (index == -1)
+            var existingMember = dbContext.Members.Find(id);
+
+            if (existingMember is null)
             {
                 return Results.NotFound();
             }
 
-            contracts[index] = new MemberContract(
-                id,
-                updatedMember.FirstName,
-                updatedMember.LastName,
-                updatedMember.Email,
-                updatedMember.PhoneNumber,
-                updatedMember.Height,
-                updatedMember.Weight,
-                updatedMember.Reason,
-                updatedMember.JoiningDate
-            );
+            dbContext.Entry(existingMember).CurrentValues.SetValues(updatedMember.ToEntity(dbContext, id));
+
+            dbContext.SaveChanges();
 
             return Results.NoContent();
 
@@ -103,17 +102,14 @@ public static class MemberEndPoints
 
 
         // DELETE /members/1
-        group.MapDelete("/{id}", (int id) =>
+        group.MapDelete("/{id}", (int id, GymContext dbContext) =>
         {
-            contracts.RemoveAll(member => member.Id == id);
+            dbContext.Members
+            .Where(member => member.Id == id)
+            .ExecuteDelete();
+
             return Results.NoContent();
-
         });
-
-
-
         return group;
-
     }
-
 }

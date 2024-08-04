@@ -23,6 +23,24 @@ public static class MemberMapping
         };
     }
 
+      public static Member ToEntity(this UpdateMemberContract newMember, GymContext dbContext, int id)
+    {
+        return new Member()
+        {
+            Id = id,
+            FirstName = newMember.FirstName,
+            LastName = newMember.LastName,
+            Email = newMember.Email,
+            PhoneNumber = newMember.PhoneNumber,
+            Height = newMember.Height,
+            Weight = newMember.Weight,
+            ReasonId = newMember.ReasonId,
+            Goal = dbContext.Reasons.Find(newMember.ReasonId)!.NameOfReason,
+            JoiningDate = newMember.JoiningDate
+        };
+    }
+
+
     public static MemberContract ToContract(this Member member)
     {
         return new(
